@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+@font-face {
+ font-family: 'fontNameRegular';
+ src: url('方正呐喊体.ttf');
+ src: local('方正呐喊体 Regular'),
+        local('方正呐喊体'),
+        url('方正呐喊体.woff') format('woff'),
+        url('方正呐喊体.ttf') format('truetype'),
+        url('方正呐喊体.svg#方正呐喊体') format('svg');
+}
+*{margin:0;padding:0;}
+html{ overflow:hidden;}
+#can1{background:#000 url(bk3.png) no-repeat;background-size:100% 100%; cursor:url(fenbi3.cur),auto; }
+p{font:41px '方正呐喊体';color:#fff;position:absolute;top:200px;left:50%;margin-left:-300px;}
+</style>
+<script>
+window.onload=function(){
+	var oC=document.getElementById('can1');
+	var gd=oC.getContext('2d');
+	
+	var winW=document.documentElement.clientWidth;
+	var winH=document.documentElement.clientHeight;
+	oC.width=winW;
+	oC.height=winH;
+
+	oC.onmousedown=function(ev){
+		var x=ev.clientX-oC.offsetLeft;
+		var y=ev.clientY-oC.offsetLeft+8;
+		gd.beginPath();
+		gd.moveTo(x,y)
+		
+		document.onmousemove=function(ev){
+			var x=ev.clientX-oC.offsetLeft;
+			var y=ev.clientY-oC.offsetLeft+8;
+			
+			gd.lineTo(x,y);
+			gd.strokeStyle='rgba(255, 255, 255, .2)';
+			gd.lineWidth='5';
+
+			gd.stroke();
+		}
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;
+		}
+		return false;
+	}
+}
+</script>
+</head>
+
+<body>
+<canvas id="can1" width="700" height="600"></canvas>
+<p>生活就像一座座围城，而我是一名</p>
+</body>
+</html>
