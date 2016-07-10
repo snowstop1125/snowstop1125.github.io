@@ -3,57 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
-
-	<link href="image/title3.ico" rel="icon" type="image/x-icon" />
-
 <style>
-*{margin:0;padding:0;}
-html{ overflow:hidden;}
-#cav{background:#000 url(image/bk3.png) no-repeat;background-size:100% 100%; cursor:url(image/fenbi3.cur),auto; }
-#kaitou p{font:41px '方正呐喊体';color:#fff;position:absolute;top:200px;left:50%;margin-left:-300px;}
-#kaitou a{position:absolute;bottom:200px;left:50%;margin-left:-105px;width:210px;height:70px;background:url(image/in.png) no-repeat 50% 50%; text-indent:-999999em; }
-#kaitou a:active{background:url(image/in-active.png) no-repeat 50% 50%;}
+#box{position:relative;margin:200px auto;width:300px;height:300px; -webkit-transform-style:preserve-3d; -webkit-transition:3s all linear; -webkit-transform: perspective(800px) rotateX(0deg) rotateY(0deg)}
+#box div{width:100%;height:100%;text-align:center;font:20px/300px '微软雅黑';position:absolute;top:0;left:0;}
+#box .f{background:rgba(255,217,0,0.5);-webkit-transform:translateZ(-150px);}
+#box .top{background:rgba(123,111,255,0.5);-webkit-transform:translate(0,-150px) rotateX(90deg);}
+#box .bottom{background:rgba(123,111,255,0.5);-webkit-transform:translate(0,150px) rotateX(-90deg);}
+#box .left{background:rgba(0,255,255,0.5);-webkit-transform:translate(-150px,0px) rotateY(90deg);}
+#box .right{background:rgba(0,255,255,0.5);-webkit-transform:translate(150px,0px) rotateY(-90deg);}
+#box .z{background:rgba(255,217,0,0.5);-webkit-transform:translateZ(150px);}
+#box:active{-webkit-transform: perspective(800px) rotateX(360deg) rotateY(-360deg)}
 </style>
-<script>
-window.onload=function(){
-	var oC=document.getElementById('cav');
-	var gd=oC.getContext('2d');
-	
-	var winW=document.documentElement.clientWidth;
-	var winH=document.documentElement.clientHeight;
-	oC.width=winW;
-	oC.height=winH;
-
-	oC.onmousedown=function(ev){
-		var x=ev.clientX-oC.offsetLeft;
-		var y=ev.clientY-oC.offsetLeft+8;
-		gd.beginPath();
-		gd.moveTo(x,y)
-		
-		document.onmousemove=function(ev){
-			var x=ev.clientX-oC.offsetLeft;
-			var y=ev.clientY-oC.offsetLeft+8;
-			
-			gd.lineTo(x,y);
-			gd.strokeStyle='rgba(255, 255, 255, .2)';
-			gd.lineWidth='5';
-
-			gd.stroke();
-		}
-		document.onmouseup=function(){
-			document.onmousemove=document.onmouseup=null;
-		}
-		return false;
-	}
-}
-</script>
 </head>
 
 <body>
-<div id="kaitou">
-    <canvas id="cav" width="700" height="600"></canvas>
-    <p>生活就像一座座围城，而我是一名</p>
-    <a href="javascript:;">进入首页</a>
+<div id="box">
+	<div class="z">正面</div>
+	<div class="f">反面</div>
+	<div class="left">左面</div>
+	<div class="right">右面</div>
+	<div class="top">上面</div>
+	<div class="bottom">下面</div>
 </div>
 </body>
 </html>
