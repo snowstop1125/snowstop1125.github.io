@@ -3,24 +3,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>无标题文档</title>
+
+	<link href="image/title3.ico" rel="icon" type="image/x-icon" />
+
 <style>
-@font-face {
- font-family: 'fontNameRegular';
- src: url('方正呐喊体.ttf');
- src: local('方正呐喊体 Regular'),
-        local('方正呐喊体'),
-        url('方正呐喊体.woff') format('woff'),
-        url('方正呐喊体.ttf') format('truetype'),
-        url('方正呐喊体.svg#方正呐喊体') format('svg');
-}
 *{margin:0;padding:0;}
 html{ overflow:hidden;}
-#can1{background:#000 url(bk3.png) no-repeat;background-size:100% 100%; cursor:url(fenbi3.cur),auto; }
-p{font:41px '方正呐喊体';color:#fff;position:absolute;top:200px;left:50%;margin-left:-300px;}
+#cav{background:#000 url(image/bk3.png) no-repeat;background-size:100% 100%; cursor:url(image/fenbi3.cur),auto; }
+#kaitou p{font:41px '方正呐喊体';color:#fff;position:absolute;top:200px;left:50%;margin-left:-300px;}
+#kaitou a{position:absolute;bottom:200px;left:50%;margin-left:-105px;width:210px;height:70px;background:url(image/in.png) no-repeat 50% 50%; text-indent:-999999em; }
+#kaitou a:active{background:url(image/in-active.png) no-repeat 50% 50%;}
 </style>
 <script>
 window.onload=function(){
-	var oC=document.getElementById('can1');
+	var oC=document.getElementById('cav');
 	var gd=oC.getContext('2d');
 	
 	var winW=document.documentElement.clientWidth;
@@ -54,7 +50,10 @@ window.onload=function(){
 </head>
 
 <body>
-<canvas id="can1" width="700" height="600"></canvas>
-<p>生活就像一座座围城，而我是一名</p>
+<div id="kaitou">
+    <canvas id="cav" width="700" height="600"></canvas>
+    <p>生活就像一座座围城，而我是一名</p>
+    <a href="javascript:;">进入首页</a>
+</div>
 </body>
 </html>
