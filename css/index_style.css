@@ -1,18 +1,51 @@
 @charset "utf-8";
 /* CSS Document */
-body{background:url(image/background1.jpg) #000;}
-#next a{position:fixed;width:51px;height:16px;background:url(image/jiantou.png) no-repeat;bottom:40px;left:50%;margin-left:-25px;}
-#nav{width:100%;height:50px;background:#E4E48C;_position:absolute;top:0;}
-#nav .nav_r{width:550px;margin-right:20px;position:fixed;right:0;top:65px;background:rgba(228, 228, 140, 0.76); border-radius:26px;overflow:hidden;}
-#nav ul{position:relative;z-index:1;}
-#nav li{width:110px;height:50px;float:left;}
-#nav li a{display:block;width:110px;height:50px;text-align:center;font:13px/50px '微软雅黑';color:#353434;}
-#nav li a.active{color:#FFFFC7;}
-#nav li a:hover{color:#FFFFC7;}
-#nav li.bar{position:absolute;top:5px;left:0;width:110px;height:40px; border-radius:50%;background:rgb(183, 183, 96);z-index:-1;}
+html{width:100%;height:100%;overflow:hidden}
+
+body{width:100%;height:100%;overflow:hidden;_background:url(../image/background1.jpg) no-repeat; background-size:100% 100%; min-width:600px;}
+
+#kaitou{ opacity:1; position:absolute;top:0;left:0; z-index:999;width:100%;height:100%; overflow:hidden;}
+#cav{background:url(../image/bk1.jpg) no-repeat;background-size:100% 100%; cursor:url(../image/fenbi3.cur),auto; _overflow:hidden;}
+#kaitou p{font:50px '方正呐喊体';color:#fff;position:absolute;top:25%;left:50%;margin-left:-370px;}
+#kaitou a{position:absolute;top:65%;left:50%;margin-left:-105px;width:210px;height:70px;background:url(../image/in.png) no-repeat 50% 50%; text-indent:-999999em;  cursor:url(../image/shouzhi.cur),auto; }
+#kaitou .kt_name{width:450px;height:70px;position:relative;}
+#kaitou .kt_name b{width:77px;height:69px;position:absolute;background:url(../image/gongchengshi.png) no-repeat 0 156px; text-indent:-999999em;}
+
+#kaitou span{position:absolute;width:234px;height:37px;background:url(../image/logo.png) no-repeat;bottom:14%;left:50%;margin-left:-117px;}
+#kaitou a:hover{background:url(../image/in-hover.png) no-repeat 50% 50%;}
+#kaitou a:active{background:url(../image/in-active.png) no-repeat 50% 50%;}
+
+#nav_r{display:none;width:500px;margin-right:20px;position:absolute;right:0;top:18px;background:rgba(184, 184, 106, 0.58); border-radius:31px;overflow:hidden; z-index:100; }
+#nav_r ul{position:relative;z-index:1;}
+#nav_r li{width:100px;height:40px;float:left;text-align:center;font:13px/40px '微软雅黑';color:#2F2F27; cursor:pointer;}
+#nav_r li.active{color:#FFFFC7;}
+/*#nav_r li a:hover{color:#FFFFC7;}*/
+#nav_r #bar{position:absolute;top:-10px;left:0;width:100px;height:60px; border-radius:60%;background:rgba(220, 214, 42, 0.56);z-index:-1; }
+
+#wrap{display:none;width:100%;height:100%;background:url(../image/background1.jpg);position:absolute;top:0;left:0;}
+#wrap .page{width:100%;height:100%; position:relative;}
+#wrap .page1{ _background:#990; }
+#wrap .page1 .nav{width:100%;height:75px;background:rgb(184, 184, 106);}
+#snow{width:100%;height:200px;position:absolute;left:0;bottom:0;}
+#snow li{background:#fff;; position:absolute;bottom:-10px; border-radius:50%;}
+
+#wrap .page2{ background:#333;}
+
+#wrap .page3{ background:#666;}
+
+#wrap .page4{ background:#000;}
+#wrap .page5{background:rgb(184, 184, 106);}
+
+#tab{position:absolute;top:50%;right:20px;width:10px;height:110px;margin-top:-55px; z-index:100;}
+#tab li{width:10px;height:10px; border-radius:50%;border:1px solid #E4E48C;background:#E4E48C; cursor:pointer;margin:0 auto 15px;-webkit-transition:.2s all ease;-moz-transition:.2s all ease;-ms-transition:.2s all ease;-o-transition:.2s all ease;transition:.2s all ease;}
+#tab li.active{-webkit-transform:scale(1.5,1.5);-moz-transform:scale(1.5,1.5);-ms-transform:scale(1.5,1.5);-o-transform:scale(1.5,1.5);transform:scale(1.5,1.5);background:none;}
 
 
-#page{width:100%;height:100%;}
-#page .page1{width:100%;height:100%;background:-rgba(0, 0, 0, 0.79);background-size:100%;}
+#next{ opacity:1;-webkit-transition:.5s all ease;-moz-transition:.5s all ease;-ms-transition:.2s all ease;-o-transition:.2s all ease;transition:.2s all ease;}
+#next a{position:fixed;z-index:100;bottom:40px;left:50%;margin-left:-25px; width:51px;height:16px;background:url(../image/jiantou.png) no-repeat; }
 
+
+
+::selection{color:#e2de73;}
+::-moz-selection{color:#fff;}
 

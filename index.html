@@ -1,86 +1,74 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-Hans">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>无标题文档</title>
-<style>
-*{margin:0;padding:0; list-style:none;}
-body{background:#000;}
-#div1{width:100px;margin:20px auto; }
-#box{width:100%;position:relative;margin:50px auto;height:410px;_background:#333;}
-#box ul{width:500px;position:absolute;top:0;left:50%;margin-left:-250px;}
-#box li{ box-shadow:0 0 80px #000;position:absolute;left:0;top:0;width:500px;height:300px;border:7px solid rgba(102,102,102,.5); float:left;  -webkit-transform-style:preserve-3d; -webkit-transition:.5s all ease;opacity:0;}
-#box li img{width:100%;height:100%;}
-#box li.cur{opacity:1; z-index:5;}
-#box li.l1{-webkit-transform:perspective(800px) translateZ(-100px) translateX(-250px) rotateY(45deg);opacity:1; z-index:4;}
-#box li.r1{-webkit-transform:perspective(800px) translateZ(-100px) translateX(250px) rotateY(-45deg);opacity:1; z-index:4;}
-#box li.l2{-webkit-transform:perspective(800px) translateZ(-100px) translateX(-350px) rotateY(45deg);opacity:.2; z-index:3;}
-#box li.r2{-webkit-transform:perspective(800px) translateZ(-100px) translateX(350px) rotateY(-45deg);opacity:.2; z-index:3;}
-</style>
-<script>
-window.onload=function(){
-	var oPrev=document.getElementById('prev');
-	var oNext=document.getElementById('next');
-	var aLi = document.querySelectorAll('#box ul li');
-	var aClass=[];
-	var bOk=false;
-	
-	for(var i=0;i<aLi.length;i++){
-		aClass[i]=aLi[i].className;
-	}
-	
-	oNext.onclick=function(){
-		if(bOk) return;
-		bOk=true;
-		aClass.unshift(aClass.pop());
-		tab();
-	}
-	oPrev.onclick=function(){
-		if(bOk) return;
-		bOk=true;
-		aClass.push(aClass.shift());
-		tab();
-	}
-	
-	function tab(){
-		var oCur=document.querySelector('li.cur');
-		for(var i=0;i<aLi.length;i++){
-			aLi[i].className=aClass[i];
-		}
-		function tranEnd(){
-			oCur.removeEventListener('transitionend',tranEnd,false);
-			bOk=false;
-		}
-		oCur.addEventListener('transitionend',tranEnd,false);
-	}
-}
-
-
-</script>
+<meta charset="UTF-8">
+<title>汪-前端攻城狮</title>
+<!--<link href="image/title0.ico" rel="icon" type="image/x-icon" />
+--><link rel="stylesheet" href="css/common.css"/>
+<link rel="stylesheet" href="css/index_style.css"/>
+<script src="javascript/frame.js"></script>
+<script src="javascript/snowstop.js"></script>
 </head>
 
 <body>
-<div id="box">
-    <ul>
-        <li class="l2"><img src="img/img1.png"/></li>
-        <li class="l1"><img src="img/img3.png"/></li>
-        <li class="cur"><img src="img/img2.png"/></li>
-        <li class="r1"><img src="img/img1.png"/></li>
-        <li class="r2"><img src="img/img3.png"/></li>
-        <li ><img src="img/img4.png"/></li>
-        <li ><img src="img/img5.png"/></li>
-        <li ><img src="img/pic1.jpg"/></li>
-        <li ><img src="img/pic2.jpg"/></li>
-        <li ><img src="img/pic3.jpg"/></li>
-        <li ><img src="img/pic4.jpg"/></li>
-        <li ><img src="img/pic5.jpg"/></li>
-    </ul>
-</div>
-<div id="div1">
-    <input type="button" value=" < " id="prev"/>
-    <input type="button" value=" > " id="next"/>
+
+<div id="kaitou">
+    <canvas id="cav" width="700" height="600"></canvas>
+    <p>生活就像一座围城，而我是一名</p>
+    <a href="javascript:;">进入首页</a>
+    <span></span>
+    <div class="kt_name">
+        <b class="l">&lt;</b>
+        <b class="g">攻</b>
+        <b class="g">城</b>
+        <b class="g">狮</b>
+        <b class="r">/&gt;</b>
+    </div>
 </div>
 
+<!--导航开始-->
+<div id="nav_r">
+   <ul class="clearfix">
+      <li class="active">首页</li>
+      <li>技能</li>
+      <li>效果展示</li>
+      <li>效果展示2</li>
+      <li>联系方式</li>
+      <li id="bar"></li>
+
+   </ul>
+</div>
+<!--导航结束-->
+<ul id="tab">
+	<li class="active"></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li class="last"></li>
+</ul>
+
+<div id="next"><a href="javascript:;"></a></div>
+
+<div id="wrap">
+    <div class="page page1">
+        <div class="nav">
+        </div>
+    </div>
+    <div class="page page2">
+
+    </div>
+    <div class="page page3">
+
+    </div>
+    <div class="page page4">
+
+    </div>
+    <div class="page page5">
+    	<ul class="snow" id="snow">
+        	<li></li>
+        </ul>
+
+    </div>
+</div>
 </body>
 </html>
-
