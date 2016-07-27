@@ -97,6 +97,51 @@ function getPosClient(obj){
 	}
 	return {left:l,top:t};
 }
+//运动
+function move(obj,json,optional){
+	
+	optional=optional||{};
+	optional.duration=optional.duration||500;
+	optional.complete=optional.complete||null;
+	optional.easing=optional.easing||Tween.Quad.easeInOut;
+	
+	var start={};
+	var dis={};
+	for(var key in json){
+		start[key]=parseFloat(getSetStyle(obj,key));
+		dis[key]=json[key]-start[key];
+	}
+	
+	var count=Math.round(optional.duration/30);
+	var n=0;
+	
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		
+		n++;
+		
+		for(var key in json){
+			//var cur=start[key]+n*dis[key]/count;
+			var cur=optional.easing(n/count*optional.duration,start[key],dis[key],optional.duration);
+		
+		
+			if(key=='opacity'){
+				obj.style.opacity=cur;
+				obj.style.filter='alpha(opacity='+cur*100+')';
+			}else{
+				obj.style[key]=cur+'px';
+			}
+		}
+		
+		
+		if(n==count){
+			clearInterval(obj.timer);
+			optional.complete && optional.complete();
+		}
+		
+	},30);	
+}
+
 
 //高级运动框架(对象,{属性},{时间,函数,类型})
 var Tween = {
@@ -243,49 +288,6 @@ var Tween = {
 		}
 	}
 };
-function move(obj,json,optional){
-	
-	optional=optional||{};
-	optional.duration=optional.duration||500;
-	optional.complete=optional.complete||null;
-	optional.easing=optional.easing||Tween.Quad.easeInOut;
-	
-	var start={};
-	var dis={};
-	for(var key in json){
-		start[key]=parseFloat(getSetStyle(obj,key));
-		dis[key]=json[key]-start[key];
-	}
-	
-	var count=Math.round(optional.duration/30);
-	var n=0;
-	
-	clearInterval(obj.timer);
-	obj.timer=setInterval(function(){
-		
-		n++;
-		
-		for(var key in json){
-			//var cur=start[key]+n*dis[key]/count;
-			var cur=optional.easing(n/count*optional.duration,start[key],dis[key],optional.duration);
-		
-		
-			if(key=='opacity'){
-				obj.style.opacity=cur;
-				obj.style.filter='alpha(opacity='+cur*100+')';
-			}else{
-				obj.style[key]=cur+'px';
-			}
-		}
-		
-		
-		if(n==count){
-			clearInterval(obj.timer);
-			optional.complete && optional.complete();
-		}
-		
-	},30);	
-}
 
 //ajax框架 ---> url data  success error timeout type 
 function ajax(options){
@@ -413,28 +415,25 @@ function removeEvent(obj,sEvt,fn){
 }
 
 //滚轮事件函数;
-function addMouseWheel(obj,fn){
-	var firefox=window.navigator.userAgent.toLowerCase().indexOf('firefox');
-	if(firefox!=-1){
-		obj.addEventListener('DOMMouseScroll',fnWheel,false);	
-	}else{
-		obj.onmousewheel=fnWheel;			
-	}
-	function fnWheel(ev){
-		var oEvt=ev||event;
-		var down=false;
-		if(oEvt.wheelDelta){
-			down = oEvt.wheelDelta<0?true:false;
-		}else if(oEvt.detail){
-			down = oEvt.detail>0?true:false;
+	function addMouseWheel(obj,fn){
+		if(window.navigator.userAgent.indexOf('Firefox')!=-1){
+			obj.addEventListener('DOMMouseScroll',fnWheel,false);	
+		}else{
+			obj.onmousewheel=fnWheel;	
 		}
-		fn(down);
-		if(oEvt.preventDefault){
-			oEvt.preventDefault();
-		}
-		return false;
+		function fnWheel(ev){
+			var oEvt = ev||event;
+			var down = true;
+			if(oEvt.wheelDelta){
+				down = oEvt.wheelDelta<0?true : false;	
+			}else{
+				down = oEvt.detail>0?true : false;	
+			}
+			fn && fn(down);
+			obj.preventDefault &&obj.preventDefault();
+			return false;	
+		}	
 	}
-}
 
 //加载事件函数;
 function ready(fn){
