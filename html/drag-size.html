@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0;padding:0;}
+body{background:#273041;}
+
+#div1{width:200px;height:150px;background:#eee;position:absolute;top:200px;left:500px;}
+.drap .head{width:100%;height:30px;background:#399;position:absolute;top:0;left:0; cursor:move;}
+.drap .t{width:100%;height:2px;background:#999;position:absolute;top:0;left:0;z-index:2;cursor:n-resize;}
+.drap .l{width:2px;height:100%;background:#999;position:absolute;top:0;left:0; cursor:e-resize;z-index:2}
+.drap .r{width:2px;height:100%;background:#999;position:absolute;top:0;right:0;cursor:e-resize;z-index:2}
+.drap .b{width:100%;height:2px;background:#999;position:absolute;bottom:0;left:0;cursor:n-resize;z-index:2;}
+.drap .lt{width:5px;height:5px;background:#CCC;position:absolute;top:0;left:0; cursor:se-resize;z-index:3}
+.drap .rt{width:5px;height:5px;background:#CCC;position:absolute;top:0;right:0; cursor:sw-resize;z-index:3}
+.drap .lb{width:5px;height:5px;background:#CCC;position:absolute;bottom:0;left:0; cursor:sw-resize;z-index:3}
+.drap .rb{width:5px;height:5px;background:#CCC;position:absolute;bottom:0;right:0; cursor:se-resize;z-index:3}
+
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById("div1");
+	var aDiv=oDiv.children;
+	for(var i=0;i<aDiv.length;i++){
+		drag(aDiv[i]);
+	}
+	function drag(obj){
+		obj.onmousedown=function(ev){
+			var oEvt=ev||event;
+			var disX=oEvt.clientX-obj.parentNode.offsetLeft;
+			var disY=oEvt.clientY-obj.parentNode.offsetTop;
+
+			var oldX=oEvt.clientX;
+			var oldY=oEvt.clientY;
+			var oldW=obj.parentNode.offsetWidth;
+			var oldH=obj.parentNode.offsetHeight;
+			var oldL=obj.parentNode.offsetLeft;
+			var oldT=obj.parentNode.offsetTop;
+			
+			document.onmousemove=function(ev){
+				var oEvt=ev||event;
+				var newX=oEvt.clientX;
+				var newY=oEvt.clientY;
+				
+				if(obj.className.indexOf('l') !=-1){
+					obj.parentNode.style.width=oldW+(oldX-newX)+'px';
+					obj.parentNode.style.left=oldL-(oldX-newX)+'px';
+				}
+				if(obj.className.indexOf('t') !=-1){
+					obj.parentNode.style.height=oldH+(oldY-newY)+'px';
+					obj.parentNode.style.top=oldT-(oldY-newY)+'px';
+				}
+				if(obj.className.indexOf('r') !=-1){
+					obj.parentNode.style.width=oldW+(newX-oldX)+'px';
+				}
+				if(obj.className.indexOf('b') !=-1){
+					obj.parentNode.style.height=oldH+(newY-oldY)+'px';
+				}
+				if(obj.className.indexOf('head') != -1){
+					//移动obj.parentNode
+					obj.parentNode.style.left=oEvt.clientX-disX+'px';
+					obj.parentNode.style.top=oEvt.clientY-disY+'px';
+				}
+				
+			}
+			document.onmouseup=function(){
+				document.onmouseup=document.onmousemove=null;
+			}
+			return false;
+		}
+	}
+	
+	
+/*	oDiv2.onmousedown=function(ev){
+		var oEvt=ev||event;
+		var oldX=oEvt.clientX;
+		var oldY=oEvt.clientY;
+		var oldW=oDiv1.offsetWidth;
+		var oldH=oDiv1.offsetHeight;
+				
+		document.onmousemove=function(ev){
+			var oEvt=ev||event;
+			var newX=oEvt.clientX;
+		    var newY=oEvt.clientY;
+			
+			oDiv1.style.width=oldW+(newX-oldX)+'px';
+			oDiv1.style.height=oldH+(newY-oldY)+'px';
+		}
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;
+			//oDiv.releaseCapture && oDiv.releaseCapture();
+		}
+		return false;
+	}
+*/}
+
+
+</script>
+</head>
+
+<body>
+<div id="div1" class="drap">
+  <div class="head"></div>
+  <div class="l"></div>
+  <div class="r"></div>
+  <div class="t"></div>
+  <div class="b"></div>
+  <div class="lt"></div>
+  <div class="rt"></div>
+  <div class="lb"></div>
+  <div class="rb"></div>
+</div>
+</body>
+</html>

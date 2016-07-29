@@ -213,11 +213,11 @@ window.onload=function(){
 				document.onmousemove=function(ev){
 					//x = ev.pageY-disY;
 					y = ev.pageX-disX;
-					o3D.style.WebkitTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-					o3D.style.MozTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-					o3D.style.msTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-					o3D.style.OTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-					o3D.style.transform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
+					o3D.style.WebkitTransform = 'perspective(800px)  rotateX(-5deg) rotateY('+y/5+'deg)';
+					o3D.style.MozTransform = 'perspective(800px)  rotateX(-5deg) rotateY('+y/5+'deg)';
+					o3D.style.msTransform = 'perspective(800px)  rotateX(-5deg) rotateY('+y/5+'deg)';
+					o3D.style.OTransform = 'perspective(800px)  rotateX(-5deg) rotateY('+y/5+'deg)';
+					o3D.style.transform = 'perspective(800px)  rotateX(-5deg) rotateY('+y/5+'deg)';
 					//iSpeedX = ev.pageX-lastX;
 					iSpeedY = ev.pageY-lastY;
 					
@@ -234,11 +234,11 @@ window.onload=function(){
 						iSpeedY*=0.8;
 						x += iSpeedY;
 						y += iSpeedX;
-						o3D.style.WebkitTransform = 'perspective(800px) rotateX(-3deg) rotateY('+y/5+'deg)';
-						o3D.style.MozTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-						o3D.style.msTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-						o3D.style.OTransform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
-						o3D.style.transform = 'perspective(800px)  rotateX(-3deg) rotateY('+y/5+'deg)';
+						o3D.style.WebkitTransform = 'perspective(800px) rotateX(-4deg) rotateY('+y/5+'deg)';
+						o3D.style.MozTransform = 'perspective(800px)  rotateX(-4deg) rotateY('+y/5+'deg)';
+						o3D.style.msTransform = 'perspective(800px)  rotateX(-4deg) rotateY('+y/5+'deg)';
+						o3D.style.OTransform = 'perspective(800px)  rotateX(-4deg) rotateY('+y/5+'deg)';
+						o3D.style.transform = 'perspective(800px)  rotateX(-4deg) rotateY('+y/5+'deg)';
 						//if(Math.abs(iSpeedX)<1)iSpeedX=0;
 						if(Math.abs(iSpeedY)<1)iSpeedY=0;
 						if(iSpeedX==0&&iSpeedY==0){
@@ -270,6 +270,52 @@ window.onload=function(){
 
 		}
  	};
+	
+	//page4
+	//page4();
+	function page4(){
+		var oLianxi = document.getElementById('lianxi');
+		var botLi = oLianxi.children;
+		//球
+		function page4Img(obj,speed){
+			clearInterval(obj.timer);
+			obj.speedY=0;
+			obj.timer = setInterval(function(){
+				obj.speedY += 3;
+				var t = obj.offsetTop + obj.speedY;
+	
+				if(t >=0){
+					obj.speedY *= speed;
+					t = 0;
+				} 
+				obj.style.top  = t + "px";
+				if(Math.abs(obj.speedY) < 1){
+					obj.speedY = 0;
+				}
+				if(obj.speedY == 0 && t == 0){
+					clearInterval(obj.timer);
+				}
+			},30);	
+		}
+		function page4Imgshow(){
+			for(var i=0;i<botLi.length;i++){
+				page4Img(botLi[i],-(0.5+Math.random()*0.3));	
+			}	
+		}
+		
+		function page4Hide(){
+			for(var i=0;i<botLi.length;i++){
+				move(botLi[i],{top:-400},{duration:300})	
+			}	
+		}
+		if(iNow==aHead.length-1){
+			page4Imgshow();
+		}else {
+			page4Hide();
+		}
+		
+	}
+
 
 	//滚轮
 	addMouseWheel(oWrap,function(down){
@@ -333,6 +379,7 @@ window.onload=function(){
 	//选项卡函数  pageTab
  	function pageTab(){
 		page2();
+		page4();
 
 		for(var i=0;i<aLi.length;i++){
 			aLi[i].className='';
@@ -377,7 +424,6 @@ window.onload=function(){
 			move(oNavr,{top:13},{easing:Tween.Expo.easeOut});
 			}
 		}
-		
 		
  		move(oWrap,{top:-iNow*aPage[0].offsetHeight},{complete:function(){
 			 ready=true;

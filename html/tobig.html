@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+body{background:#273041;}
+
+#div1{position:relative;width:400px;height:400px;}
+#div1 img{}
+#mark{width:100px;height:100px;background:#000; opacity:.5;position:absolute;top:0;left:0;display:none;}
+#div2{position:absolute;top:0;left:420px;width:400px;height:400px;overflow:hidden;display:none;}
+#big{position:absolute;top:0;left:0;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv1=document.getElementById('div1');
+	var oMark=document.getElementById('mark');
+	var oDiv2=document.getElementById('div2');
+	var oBig=document.getElementById('big');
+	oDiv1.onmouseover=function(){
+		oMark.style.display="block";
+		oDiv2.style.display="block";
+	}
+	oDiv1.onmouseout=function(){
+		oMark.style.display="none";
+		oDiv2.style.display="none";
+	}
+	oDiv1.onmousemove=function(ev){
+		var oEvt=ev||event;
+		var l=oEvt.clientX-oMark.offsetWidth/2;
+		var t=oEvt.clientY-oMark.offsetHeight/2
+		
+		if(l<0) l=0;
+		if(l>oDiv1.offsetWidth-oMark.offsetWidth)
+			l=oDiv1.offsetWidth-oMark.offsetWidth;
+		if(t<0) t=0;
+		if(t>oDiv1.offsetHeight-oMark.offsetHeight)
+			t=oDiv1.offsetHeight-oMark.offsetHeight;
+			
+		oMark.style.left=l+'px';
+		oMark.style.top=t+'px';
+		
+		oBig.style.left='-'+oMark.offsetLeft/(oDiv1.offsetWidth-oMark.offsetWidth)*(oBig.offsetWidth-oDiv2.offsetWidth)+'px';
+		oBig.style.top='-'+oMark.offsetTop/(oDiv1.offsetHeight-oMark.offsetHeight)*(oBig.offsetHeight-oDiv2.offsetHeight)+'px';
+		
+	}
+	
+
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+  <img src="image/tobig-s.jpg"/>
+  <div id="mark"></div>
+  <div id="div2">
+    <img id="big" src="image/tobig-b.jpg"/>
+  </div>
+</div>
+</body>
+</html>

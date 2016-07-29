@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>拖拽照片墙</title>
+<style>
+*{ margin:0; padding:0; list-style:none; font-family: "微软雅黑","张海山锐线体简"}
+body{background:#273041;}
+
+#div1{width:100%;height:480px; margin:0 auto; position:relative; overflow:hidden;}
+#div1 ul{ position:absolute;left:0;top:200px;}
+#div1 ul li{ float: left; position:relative;width:260px;height:179px; }
+#div1 ul li img{ width:260px;height:179px; position:absolute;left:0;top:0; /*opacity:0.5*/border:6px solid rgba(185, 185, 185, 0.44);}
+#div1 ul li span{font-size:30px;color:#000; background:#fff; position:absolute;left:48%;top:48%;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById('div1');
+	var oUl=oDiv.children[0];
+	var aLi=oUl.children;
+	var aImg=oUl.getElementsByTagName('img');
+	var aSpan=oUl.getElementsByTagName('span');
+	
+	//1.设定ul的width
+	oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+	
+	//2.拖拽
+	oUl.onmousedown=function(ev){
+		var oEvt=ev||event;
+		var disX=oEvt.clientX-oUl.offsetLeft;
+		document.onmousemove=function(ev){
+			var oEvt=ev||event;
+			var l=oEvt.clientX-disX;//计算
+			//5.限定
+			if(l>oDiv.offsetWidth/2-(0+0.5)*aLi[0].offsetWidth)
+				l=oDiv.offsetWidth/2-(0+0.5)*aLi[0].offsetWidth;
+			if(l<oDiv.offsetWidth/2-(aLi.length-1+0.5)*aLi[0].offsetWidth)
+				l=oDiv.offsetWidth/2-(aLi.length-1+0.5)*aLi[0].offsetWidth;
+			oUl.style.left=l+'px'; //使用
+			
+			setSize();//3.修改尺寸
+				
+		};	
+		document.onmouseup=function(){
+			document.onmousemove=document.onmouseup=null;	
+		};
+		
+		return false;
+	};
+	//4.设定中心点
+	setCenter(3);
+	function setCenter(n){
+		//	oDiv.w/2-(n+0.5)*li.w
+		oUl.style.left=oDiv.offsetWidth/2-(n+0.5)*aLi[0].offsetWidth+'px';
+	}
+	setSize();
+	function setSize(){
+		//3.放大所有图片，根据距离dis
+		//dis=oDiv.w/2-(ul.left+li.left+li.w/2)
+		for(var i=0;i<aImg.length;i++){
+			var dis=Math.abs(oDiv.offsetWidth/2-(oUl.offsetLeft+aLi[i].offsetLeft+aLi[i].offsetWidth/2));
+			var scale=1-dis/800;	//1---0	计算
+			
+			//限定
+			if(scale<0.5) scale=0.5;
+			
+			//aSpan[i].innerHTML=scale.toFixed(2);
+			
+			//放大图片width/height/marginLeft/marginTop
+			aImg[i].style.width=520*scale+'px';	//使用
+			aImg[i].style.height=358*scale+'px';
+			aImg[i].style.marginLeft=-(aImg[i].offsetWidth-aLi[i].offsetWidth)/2+'px';
+			aImg[i].style.marginTop=-(aImg[i].offsetHeight-aLi[i].offsetHeight)/2+'px';
+			aImg[i].style.zIndex=parseInt(scale*10000);
+			aImg[i].style.opacity=scale;
+			
+		}	
+	}
+	
+	window.onresize=setSize;
+};
+</script>
+</head>
+
+<body>
+
+<div id="div1">
+	<ul>
+    	<li><img src="image/1.jpg" alt=""></li>
+		<li><img src="image/2.jpg" alt=""></li>
+		<li><img src="image/3.jpg" alt=""></li>
+		<li><img src="image/4.jpg" alt=""></li>
+		<li><img src="image/5.jpg" alt=""></li>
+		<li><img src="image/6.jpg" alt=""></li>
+		<li><img src="image/7.jpg" alt=""></li>
+		<li><img src="image/8.jpg" alt=""></li>
+    </ul>
+</div>
+
+</body>
+</html>

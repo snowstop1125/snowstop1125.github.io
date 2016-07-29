@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>作品展示</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    html, body {
+        overflow: hidden;
+    }
+	body{background:#273041;}
+    #box {
+        width: 700px;
+        height: 400px;
+        background: url(img/1.png) no-repeat;
+        margin: 50px auto;
+        position: relative;
+        background-size: 700px 400px;
+    }
+
+    #box span {
+        position: absolute;
+        background: url(img/0.png) no-repeat;
+        background-size: 700px 400px;
+    }
+p{position:absolute;bottom:20%;color:#CCC;left:50%;margin-left:-50px;}
+</style>
+<script>
+    function rnd(n, m) {
+        return parseInt(Math.random() * (m + 1 - n) + n);
+    }
+    window.onload = function () {
+        var oBox = document.getElementById('box');
+
+        var R = 4;
+        var C = 7;
+        for (var r = 0; r < R; r++) {
+            for (var c = 0; c < C; c++) {
+                var oSpan = document.createElement('span');
+                oSpan.style.width = oBox.offsetWidth / C + 'px';
+                oSpan.style.height = oBox.offsetHeight / R + 'px';
+                oBox.appendChild(oSpan);
+                oSpan.style.left = c * oSpan.offsetWidth + 'px';
+                oSpan.style.top = r * oSpan.offsetHeight + 'px';
+
+                oSpan.style.backgroundPosition = '-' + c * oSpan.offsetWidth + 'px -' + r * oSpan.offsetHeight + 'px';
+            }
+        }
+
+        //点击
+        var iNow = 0;
+        var bReady = true;
+        oBox.onclick = function () {
+            if (bReady == false)return;
+            bReady = false;
+            iNow++;
+            var aSpan = oBox.children;
+
+            for (var i = 0; i < aSpan.length; i++) {
+                aSpan[i].style.transition = '1s all cubic-bezier(1,-0.99, 0.43, 1.29)';
+
+                var x = aSpan[i].offsetLeft + aSpan[i].offsetWidth / 2 - oBox.offsetWidth / 2;
+                var y = aSpan[i].offsetTop + aSpan[i].offsetHeight / 2 - oBox.offsetHeight / 2;
+
+                aSpan[i].style.transform = 'translate3d(' + x + 'px,' + y + 'px,100px) rotateX(' + rnd(0, 180) + 'deg) rotateY(' + rnd(0, 180) + 'deg)';
+                aSpan[i].style.opacity = 0;
+            }
+            aSpan[0].addEventListener('transitionend', function () {
+                for (var i = 0; i < aSpan.length; i++) {
+                    aSpan[i].style.transition = 'none';
+                    aSpan[i].style.opacity = 1;
+                    aSpan[i].style.transform = 'translate3d(0,0,0) rotateX(0deg) rotateY(0deg)';
+                    oBox.style.backgroundImage = 'url(img/' + (iNow + 1) % 3 + '.png)';
+                    aSpan[i].style.backgroundImage = 'url(img/' + iNow % 3 + '.png)';
+                }
+                bReady = true;
+            }, false);
+        };
+    };
+</script>
+</head>
+
+<body>
+<div id="box">
+
+</div>
+<p>请点击图片</p>
+</body>
+</html>

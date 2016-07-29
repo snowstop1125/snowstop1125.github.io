@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>作品展示</title>
+<style>
+*{margin:0; padding:0;}
+body{background:#273041;width:800px;margin:100px auto;}
+span{float:left; font-size:25px;line-height:35px; font-weight:bold; color:#C9C9BA; opacity:0;}
+</style>
+<script src="move.js"></script>
+<script>
+window.onload=function(){
+	var str = '  前端对于网站来说，通常是指，网站的前台部分包括网站的表现层和结构层。因此前端技术一般分为前端设计和前端开发，前端设计一般可以理解为网站的视觉设计，前端开发则是网站的前台代码实现，包括基本的HTML和CSS以及JavaScript/ajax，现在最新的高级版本HTML5、CSS3，以及SVG等。级联样式表（Cascading Style Sheet）简称“CSS”，通常又称为“风格样式表（Style Sheet）”，它是用来进行网页风格设计的。比如，如果想让链接字未点击时是蓝色的，当鼠标移上去后字变成红色的且有下划线，这就是一种风格。通过设立样式表，可以统一地控制HTML中各标志的显示属性。级联样式表可以使人更能有效地控制网页外观。使用级联样式表，可以扩充精确指定网页元素位置，外观以及创建特殊效果的能力。';
+	for(var i=0;i<str.length;i++){
+		var oS = document.createElement('span');
+		oS.innerHTML=str.charAt(i);
+		document.body.appendChild(oS);
+	}
+	var aS = document.body.children;
+	var i=0;
+	var timer= null;
+	timer = setInterval(function(){
+		//aS[i].style.opacity=1;
+		move(aS[i],{opacity:1});
+		i++;
+		if(i==str.length){
+			clearInterval(timer);
+		}
+	},100);
+};
+</script>
+</head>
+
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+

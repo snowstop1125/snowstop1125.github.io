@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+body{background:#273041;}
+#box{width:440px;height:500px;border:1px solid #999;background:url(image/Cartoon.jpg) no-repeat;margin:0 auto;}
+#top{width:440px;height:250px;background:#CCC; opacity:.3; filter:alpha(opacity:30);}
+#down{width:440px;height:250px;background:#FFC; opacity:.3; filter:alpha(opacity:30);}
+</style>
+<script>
+window.onload=function(){
+	var oBox=document.getElementById("box");
+	var oTop=document.getElementById("top");
+	var oDown=document.getElementById("down");
+	var i=0;
+	var timer=null;
+	var bClick=false;
+	oDown.onmouseover=function(){
+		
+		timer=setInterval(function(){
+			i++;
+			oBox.style.backgroundPosition="0 -"+i+"px";
+			if(i>1666){
+			clearInterval(timer); 
+		    }
+		},10);
+		
+		
+	}
+    oDown.onmouseout=function(){
+		clearInterval(timer);
+	}
+	oTop.onmouseover=function(){
+		
+		timer=setInterval(function(){
+			i--;
+			oBox.style.backgroundPosition="0 -"+i+"px";
+			if(i<1){
+			clearInterval(timer); 
+		    }
+		},10);
+		
+		
+	}
+    oTop.onmouseout=function(){
+		clearInterval(timer);
+	}
+	
+	oTop.onclick=function(){
+/*		if(bClick=true){
+			return;
+		}
+		bClick=true;
+*/		
+		timer2=setInterval(function(){
+			i--;
+			oBox.style.backgroundPosition="0 -"+i+"px";
+			if(i<1){
+			clearInterval(timer2); 
+			//bClick=false;
+		    }
+		},-5000);
+		/*clearInterval(timer);
+		oBox.style.backgroundPosition="0 0";*/
+		
+	}
+
+	
+}
+
+</script>
+</head>
+
+<body>
+<div id="box">
+    <div id="top"></div>
+    <div id="down"></div>
+</div>
+</body>
+</html>

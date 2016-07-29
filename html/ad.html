@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+body{background:#273041;}
+div{width:200px; height:200px; background:url(image/ad.png) no-repeat; background-size:100%;position:absolute; top:0; left:0;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv = document.body.children[0];
+	var iSpeedX = 6;
+	var iSpeedY = 8;
+	var timer=null;
+	
+	closeAd();
+	function closeAd() {
+		timer=setInterval(function(){
+			var l = oDiv.offsetLeft+iSpeedX;
+			var t = oDiv.offsetTop+iSpeedY;
+			if(t>=document.documentElement.clientHeight-oDiv.offsetHeight){
+				t=document.documentElement.clientHeight-oDiv.offsetHeight;
+				iSpeedY*=-1;
+			}
+			if(t<0){
+				t=0;
+				iSpeedY*=-1;
+			}
+			if(l>=document.documentElement.clientWidth-oDiv.offsetWidth){
+				l=document.documentElement.clientWidth-oDiv.offsetWidth;
+				iSpeedX*=-1;
+			}
+			if(l<0){
+				l=0;
+				iSpeedX*=-1;
+			}
+			oDiv.style.left = l+'px';
+			oDiv.style.top = t+'px';
+		},50);
+
+	}
+	
+	oDiv.onmouseover=function(){
+		clearInterval(timer);
+	}
+	oDiv.onmouseout=function(){
+		closeAd();
+	}
+};
+</script>
+</head>
+
+<body>
+<div></div>
+</body>
+</html>
