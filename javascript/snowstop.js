@@ -398,8 +398,9 @@ window.onload=function(){
 
 	//选项卡函数  pageTab
  	function pageTab(){
-
+		page2();
 		page4();
+
 
 		for(var i=0;i<aLi.length;i++){
 			aLi[i].className='';
@@ -420,6 +421,8 @@ window.onload=function(){
 		}else{
 			aHead[iNow].className='active';
 		};
+
+
   		move(oWrap,{top:-iNow*aPage[0].offsetHeight},{complete:function(){
 			ready=true;
 			if(iNow==aHead.length){
@@ -427,8 +430,6 @@ window.onload=function(){
 				iNow=0;
 			}
 		},easing:Tween.Expo.easeOut,duration:1000});
- 		
-
 
 
 		//小箭头
@@ -439,15 +440,10 @@ window.onload=function(){
 			oNext.style.opacity=1;
 			clearInterval(oSnow.timer);
 		}
-		if(iNow==1){
-			page2();
-		}else if(iNow==3){
-			page4();
-		}
+
 		if(iNow>=1){
 			move(oNavr,{top:33},{easing:Tween.Expo.easeOut});
-			
-			
+
 		}else if(iNow==0){
 			move(oNavr,{top:13},{easing:Tween.Expo.easeOut});
 			}
