@@ -69,8 +69,57 @@ window.onload=function(){
  		move(oNav,{height:70},{easing:Tween.Elastic.easeOut,duration:3000});
 		oWrap.style.display='block';
 		oNavr.style.display='block';
+		page1();
 	}
- 
+	//第一页运动
+
+	function page1(){
+		var oContent=document.getElementById('content');
+		var aCLi=oContent.getElementsByClassName('li');
+		var oDia=document.getElementById('dialogInfo');
+		var aDiaLi=oDia.getElementsByTagName('li');
+
+		for(var i=0;i<aCLi.length;i++){
+			//var _this=this;
+			//for(var j=0;j<aDiaLi.length;j++){
+			//
+			//}
+			//var oSpan=document.createElement('span');
+			//var oSpan=aCLi[i].getElementsByTagName('span')[0];
+			aCLi[i].index=i;
+
+			aCLi[i].onmouseover=function(ev){
+				for(var i=0;i<aCLi.length;i++){
+					aDiaLi[i].style.display='none';
+				}
+				var aDiaIndex=aDiaLi[this.index];
+				var oEvt=ev||event;
+				var l=oEvt.clientX+20;
+				var t=oEvt.clientY+20;
+				aDiaIndex.style.display='block';
+				aDiaIndex.style.left=l+'px';
+				aDiaIndex.style.top=t+'px';
+				//this.appendChild(oSpan);
+			}
+			aCLi[i].onmouseout=function(){
+				var aDiaIndex=aDiaLi[this.index];
+				aDiaIndex.style.display='none';
+				//var oS=aCLi[i].
+				//this.removeChild(oSpan);
+			}
+			aCLi[i].onmousemove=function(ev){
+				var aDiaIndex=aDiaLi[this.index];
+				var oEvt=ev||event;
+				//var disX=oEvt.clientX-aDiaIndex.offsetLeft;
+				//var disY=oEvt.clientY-aDiaIndex.offsetTop;
+				var l=oEvt.clientX+20;
+				var t=oEvt.clientY+20;
+				aDiaIndex.style.left=l+'px';
+				aDiaIndex.style.top=t+'px';
+			}
+		}
+
+	}
 	
 	var oBar=oNavr.children[0].lastElementChild || oNavr.children[0].lastChild;
 	var timer=null;
@@ -141,36 +190,7 @@ window.onload=function(){
 		pageTab();
 	}
 
-	//第一页运动
-	page1();
-	function page1(){
-		var oContent=document.getElementById('content');
-		var aCLi=oContent.getElementsByClassName('li');
-		for(var i=0;i<aCLi.length;i++){
-			//var oSpan=document.createElement('span');
-			//var oSpan=aCLi[i].getElementsByTagName('span')[0];
-			aCLi[i].onmouseover=function(){
-				this.children[3].style.display='block';
-				//this.appendChild(oSpan);
-			}
-			aCLi[i].onmouseout=function(){
-				this.children[3].style.display='none';
-				//var oS=aCLi[i].
-				//this.removeChild(oSpan);
-			}
-			aCLi[i].onmousemove=function(ev){
-				var oEvt=ev||event;
-				var disX=oEvt.clientX-this.offsetLeft;
-				var disY=oEvt.clientY-this.offsetTop;
-				var oSpan=this.children[3];
-			    var l=disX-230;
-			    var t=disY-230;
-				oSpan.style.left=l+'px';
-				oSpan.style.top=t+'px';
-			}
-		}
-		
-	}
+
 	//第二页运动
  	function page2(){
 		var count=0;
@@ -378,7 +398,7 @@ window.onload=function(){
 
 	//选项卡函数  pageTab
  	function pageTab(){
-		page2();
+
 		page4();
 
 		for(var i=0;i<aLi.length;i++){
@@ -389,7 +409,17 @@ window.onload=function(){
 		oBar.style.left=aLi[iNow].offsetLeft+'px';
 		nowPos=aLi[iNow].offsetLeft;
 		l=nowPos;
-		
+
+		for(var i=0;i<aHead.length;i++){
+			aHead[i].className='';
+		}
+		if(iNow==aHead.length){
+			iNow=0;
+			aHead[0].className='active';
+			move(oWrap,{top:-iNow*aPage[0].offsetHeight})
+		}else{
+			aHead[iNow].className='active';
+		};
   		move(oWrap,{top:-iNow*aPage[0].offsetHeight},{complete:function(){
 			ready=true;
 			if(iNow==aHead.length){
@@ -399,14 +429,8 @@ window.onload=function(){
 		},easing:Tween.Expo.easeOut,duration:1000});
  		
 
-		for(var i=0;i<aHead.length;i++){
-			aHead[i].className='';
-		}
-		if(iNow==aHead.length){
-			aHead[0].className='active';
-		}else{
-			aHead[iNow].className='active';
-		};
+
+
 		//小箭头
 		if(iNow==aHead.length-1){
 			oNext.style.opacity=0;
@@ -415,7 +439,11 @@ window.onload=function(){
 			oNext.style.opacity=1;
 			clearInterval(oSnow.timer);
 		}
-		
+		if(iNow==1){
+			page2();
+		}else if(iNow==3){
+			page4();
+		}
 		if(iNow>=1){
 			move(oNavr,{top:33},{easing:Tween.Expo.easeOut});
 			
